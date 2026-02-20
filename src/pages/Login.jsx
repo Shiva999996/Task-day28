@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Box, Button, TextField, Typography, Paper, useTheme, useMediaQuery,} from "@mui/material";
+import { Box, Button, TextField, Typography, Paper, useTheme, useMediaQuery, } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { containerVariants, itemVariants, paperAnimation } from "../animations/loginAnimations";
+import { loginUser } from "../api/auth";
+
 
 function Login() {
   const navigate = useNavigate();
@@ -12,14 +14,16 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    if (email === "shiva9996@gmail.com" && password === "shiva9996") {
+  const handleLogin = async () => {
+    try {
+      await loginUser(email, password);
       localStorage.setItem("isAuth", "true");
       navigate("/dashboard");
-    } else {
-      alert("Invalid credentials");
+    } catch (error) {
+      alert(error.message);
     }
   };
+
 
   return (
     <Box

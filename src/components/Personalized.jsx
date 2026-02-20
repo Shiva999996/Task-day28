@@ -1,6 +1,3 @@
-
-  
-
 // updating this section with task day 27 updates
 
 import { useState, useRef } from "react";
